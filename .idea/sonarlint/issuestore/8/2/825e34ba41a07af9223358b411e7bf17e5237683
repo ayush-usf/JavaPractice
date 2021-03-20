@@ -1,0 +1,45 @@
+
+J
+java:S3740"/Provide the parametrized type for this generic.( ô¹ƒøÿÿÿÿ
+E
+java:S3740,"/Provide the parametrized type for this generic.(ã°‹¼
+J
+java:S37400"/Provide the parametrized type for this generic.(±æÂÆÿÿÿÿÿ
+E
+java:S37405"/Provide the parametrized type for this generic.(‡ôš
+E
+java:S3740>"/Provide the parametrized type for this generic.(ó©¸ü
+E
+java:S3740B"/Provide the parametrized type for this generic.(±…îŒ
+J
+java:S3740F"/Provide the parametrized type for this generic.(Ô¸Üûÿÿÿÿ
+D
+java:S3740u"/Provide the parametrized type for this generic.(ÍêG
+E
+java:S3740"/Provide the parametrized type for this generic.(Éú•F
+F
+java:S3740¦"/Provide the parametrized type for this generic.(Öšôö
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ò‚£
+]
+java:S2259P"BA "NullPointerException" could be thrown; "tree" is nullable here.(µîÚ¿ûÿÿÿÿ
+\
+java:S2259ƒ"E"NullPointerException" will be thrown when invoking method "print()".(ö€ÙŞ
+f
+java:S1104,"PMake data a static final constant or non-public and provide accessors if needed.(ã°‹¼
+f
+java:S1104-"PMake left a static final constant or non-public and provide accessors if needed.(¡’µ–
+l
+java:S1104."QMake right a static final constant or non-public and provide accessors if needed.(¦ãøòüÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(¼³³ê
+S	java:S106 "9Replace this use of System.out or System.err by a logger.(ç‘›·şÿÿÿÿ
+Q	java:S125'"<This block of commented-out lines of code should be removed.(®É
+N
+java:S1854Q"8Remove this useless assignment to local variable "tree".(ÒÉÇ™
+O	java:S106"9Replace this use of System.out or System.err by a logger.(è¾—ä
+T	java:S106‚"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+T	java:S106ˆ"9Replace this use of System.out or System.err by a logger.(ó°¢¦úÿÿÿÿ
+T	java:S106"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+R	java:S125•"<This block of commented-out lines of code should be removed.(Ş­É
+T	java:S106Á"9Replace this use of System.out or System.err by a logger.(ï¢¸•şÿÿÿÿ
+W	java:S125¼"<This block of commented-out lines of code should be removed.(“Äş±øÿÿÿÿ
+R	java:S125Â"<This block of commented-out lines of code should be removed.(Í¥×é
