@@ -14,64 +14,28 @@ public class BinaryTree {
         this.root = new Node(key);
     }
 
-    public Node getRoot() {
-        return root;
+
+    int height(Node tree){
+        if(tree == null) return 0;
+        return 1 + Math.max(height(tree.left), height(tree.right));
     }
 
-    public void createTree() {
-        root = new Node(25);
-        root.left = new Node(15);
-        root.right = new Node(50);
-        root.left.left = new Node(10);
-        root.left.right = new Node(22);
-        root.right.left = new Node(35);
-        root.right.right = new Node(70);
-        root.right.left.left = new Node(30);
-        root.right.left.right = new Node(36);
-        root.right.right.left = new Node(60);
-        root.right.right.right = new Node(88);
-//        root.right.right.right.left = new Node(98);
-    }
-    public void createSmallTree() {
-        root = new Node(1);
-        root.left = new Node(7);
-        root.right = new Node(9);
-        root.left.left = new Node(4);
-        root.left.right = new Node(5);
-        root.right.left = new Node(2);
-        root.right.right = new Node(7);
-    }
-
-    protected void printPostorder(Node tree) {
-        if(tree == null) return;
-        printPostorder(tree.left);
-        printPostorder(tree.right);
-        System.out.print(tree.data + " ");
-    }
-
-    protected void printInorder(Node tree) {
-        if(tree == null) return;
-        printInorder(tree.left);
-        System.out.print(tree.data + " ");
-        printInorder(tree.right);
-    }
-
-    protected void printPreorder(Node tree) {
-        if(tree == null) return;
-        System.out.print(tree.data + " ");
-        printPreorder(tree.left);
-        printPreorder(tree.right);
-    }
-
-    void levelOrderTraversal(Node root) {
+    private Node successor(Node tree, int predKey) {
+        if(tree == null) return null;
         Queue<Node> queue = new LinkedList<>();
-        queue.add(root);
+        queue.offer(tree);
+        boolean preFound = false;
         while (!queue.isEmpty()){
             Node node = queue.poll();
-            System.out.print(node.data + " ");
-            if(node.left != null)   queue.add(node.left);
-            if(node.right != null)  queue.add(node.right);
+            if(preFound)
+                return node;
+            if(node.data.compareTo(predKey) == 0){
+                preFound = true;
+            }
+            if(node.left != null)   queue.offer(node.left);
+            if(node.right != null)   queue.offer(node.right);
         }
+        return  null;
     }
 
     // With stack data/visited still remains first
@@ -113,25 +77,6 @@ public class BinaryTree {
             System.out.print(stack2.pop().data + " ");
     }
 
-
-//    protected void printInorderIter(Node tree) {
-//        if(tree == null) return;
-//        Stack<Node> stack = new Stack<>();
-//        while (true){
-//            if(tree != null){
-//                stack.push(tree);
-//                tree = tree.left;
-//            }
-//            else {
-//                if(stack.isEmpty())
-//                    break;
-//                tree = stack.pop();
-//                System.out.print(tree.data + " ");
-//                tree = tree.right;
-//            }
-//        }
-//    }
-
     protected void printInorderIter(Node tree) {
         if(tree == null) return;
         Stack<Node> stack = new Stack<>();
@@ -152,11 +97,16 @@ public class BinaryTree {
         }
     }
 
-    //    public int[][] levelOrder(Node root) {
-//        int[][] arr = new int[height(root)][];
-////        levelOrder(root, new int[])
-//        return arr;
-//    }
+    void levelOrderTraversal(Node root) {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            Node node = queue.poll();
+            System.out.print(node.data + " ");
+            if(node.left != null)   queue.add(node.left);
+            if(node.right != null)  queue.add(node.right);
+        }
+    }
 
     public List<List<Integer>> levelOrder(Node tree){
         List<List<Integer>> list = new LinkedList<>();
@@ -182,34 +132,47 @@ public class BinaryTree {
         return list;
     }
 
-    public List<List<Integer>> reverseLevelOrder(Node tree){
-        List<List<Integer>> list = new LinkedList<>();
-
-        if(tree == null) return list;
-
+    private int minDepthOfBinTree(Node tree) {
+        if(root == null) return  0;
+        int minDepth = 0;
         Queue<Node> queue = new LinkedList<>();
         queue.offer(tree);
-
+        int depth = 0;
         while (!queue.isEmpty()){
             int levelSize = queue.size();
-            ArrayList<Integer> subList = new ArrayList<>(levelSize);
             for(int i = 0; i < levelSize; i++){
                 Node node = queue.poll();
-                subList.add((Integer) node.data);
-
-                if(node.left != null)
+                if(node.left != null){
                     queue.offer(node.left);
-                if(node.right != null)
+                }
+                else if(node.right == null){
+                    return depth;
+                }
+                if(node.right != null){
                     queue.offer(node.right);
+                }
             }
-            list.add(0, subList);
+            depth++;
         }
-        return list;
+        return minDepth;
     }
 
-    int height(Node tree){
-        if(tree == null) return 0;
-        return 1 + Math.max(height(tree.left), height(tree.right));
+
+    private List<Integer> rightView(Node root) {
+        List<Integer> list = new LinkedList<>();
+        if(root == null) return list;
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            int levelSize = queue.size();
+            for(int i = 0; i < levelSize; i++){
+                Node node = queue.poll();
+                if(i == levelSize - 1) list.add((Integer) node.data);
+                if(node.left != null) queue.offer(node.left);
+                if(node.right != null) queue.offer(node.right);
+            }
+        }
+        return list;
     }
 
     public List<List<Integer>> zigZagTraversal(Node tree){
@@ -294,6 +257,7 @@ public class BinaryTree {
             }
         }
     }
+
     private void connectLevelAllOrderSiblings(Node tree) {
         if(tree == null) return;
         Queue<Node> queue = new LinkedList<>();
@@ -315,49 +279,6 @@ public class BinaryTree {
         node.next = null;
     }
 
-    private Node successor(Node tree, int predKey) {
-        if(tree == null) return null;
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(tree);
-        boolean preFound = false;
-        while (!queue.isEmpty()){
-            Node node = queue.poll();
-            if(preFound)
-                return node;
-            if(node.data.compareTo(predKey) == 0){
-                preFound = true;
-            }
-            if(node.left != null)   queue.offer(node.left);
-            if(node.right != null)   queue.offer(node.right);
-        }
-        return  null;
-    }
-
-    private int minDepthOfBinTree(Node tree) {
-        if(root == null) return  0;
-        int minDepth = 0;
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(tree);
-        int depth = 0;
-        while (!queue.isEmpty()){
-            int levelSize = queue.size();
-            for(int i = 0; i < levelSize; i++){
-                Node node = queue.poll();
-                if(node.left != null){
-                    queue.offer(node.left);
-                }
-                else if(node.right == null){
-                    return depth;
-                }
-                if(node.right != null){
-                    queue.offer(node.right);
-                }
-            }
-            depth++;
-        }
-        return minDepth;
-    }
-
     private List<Double> levelAverages(Node root) {
         List<Double> list = new LinkedList<>();
         if(root == null) return list;
@@ -377,22 +298,87 @@ public class BinaryTree {
         return list;
     }
 
-    private List<Integer> rightView(Node root) {
-        List<Integer> list = new LinkedList<>();
-        if(root == null) return list;
+    public Node getRoot() {
+        return root;
+    }
+
+    public void createTree() {
+        root = new Node(25);
+        root.left = new Node(15);
+        root.right = new Node(50);
+        root.left.left = new Node(10);
+        root.left.right = new Node(22);
+        root.right.left = new Node(35);
+        root.right.right = new Node(70);
+        root.right.left.left = new Node(30);
+        root.right.left.right = new Node(36);
+        root.right.right.left = new Node(60);
+        root.right.right.right = new Node(88);
+//        root.right.right.right.left = new Node(98);
+    }
+    public void createSmallTree() {
+        root = new Node(1);
+        root.left = new Node(7);
+        root.right = new Node(9);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.left = new Node(2);
+        root.right.right = new Node(7);
+    }
+
+    protected void printPostorder(Node tree) {
+        if(tree == null) return;
+        printPostorder(tree.left);
+        printPostorder(tree.right);
+        System.out.print(tree.data + " ");
+    }
+
+    protected void printInorder(Node tree) {
+        if(tree == null) return;
+        printInorder(tree.left);
+        System.out.print(tree.data + " ");
+        printInorder(tree.right);
+    }
+
+    protected void printPreorder(Node tree) {
+        if(tree == null) return;
+        System.out.print(tree.data + " ");
+        printPreorder(tree.left);
+        printPreorder(tree.right);
+    }
+
+
+    public List<List<Integer>> reverseLevelOrder(Node tree){
+        List<List<Integer>> list = new LinkedList<>();
+
+        if(tree == null) return list;
+
         Queue<Node> queue = new LinkedList<>();
-        queue.offer(root);
+        queue.offer(tree);
+
         while (!queue.isEmpty()){
             int levelSize = queue.size();
+            ArrayList<Integer> subList = new ArrayList<>(levelSize);
             for(int i = 0; i < levelSize; i++){
                 Node node = queue.poll();
-                if(i == levelSize - 1) list.add((Integer) node.data);
-                if(node.left != null) queue.offer(node.left);
-                if(node.right != null) queue.offer(node.right);
+                subList.add((Integer) node.data);
+
+                if(node.left != null)
+                    queue.offer(node.left);
+                if(node.right != null)
+                    queue.offer(node.right);
             }
+            list.add(0, subList);
         }
         return list;
     }
+
+
+    //    public int[][] levelOrder(Node root) {
+//        int[][] arr = new int[height(root)][];
+////        levelOrder(root, new int[])
+//        return arr;
+//    }
 }
 
 

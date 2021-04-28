@@ -1,15 +1,34 @@
 package com.company.recursion.backtracking;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Permutations {
 
     public static void main(String[] args) {
-        System.out.println(permute(new int[]{4, 6, 9}));
-        
+//        System.out.println(permute(new int[]{4, 6, 9}));
 
+        LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>() {
+            protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+                return size() > 2;
+            }
+        };
+
+        map.put(1,1);
+        System.out.println(map);
+        map.put(2,2);
+        System.out.println(map);
+        System.out.println(map.get(2));
+        map.put(3,3);
+        System.out.println(map);
+        map.put(4,4);
+        System.out.println(map);
+        map.put(5,5);
+        System.out.println(map);
     }
+    
 
     public static List<List<Integer>> permute(int[] arr) {
         

@@ -2,11 +2,11 @@ package com.company.graph.topological;
 
 import java.util.*;
 
-public class TopologicalSortBFS {
-    public static int[] top_sort(int vertices, int[][] edges){
+public class TopologicalSortAllBFS {
+    public static int[][] top_sort(int vertices, int[][] edges){
 
         List<Integer> sortedOrder = new ArrayList<>();
-        if(vertices <= 0)  return new int[0];
+        if(vertices <= 0)  return new int[0][0];
 
         // Inititalize the graph
         HashMap<Integer, LinkedList<Integer>> graph = new HashMap<>(vertices);
@@ -34,28 +34,35 @@ public class TopologicalSortBFS {
                 queue.offer(vertex);
             }
         }
-        if(queue.size() == 0) return new int[0];
+        if(queue.size() == 0) return new int[0][0];
 
-        while (!queue.isEmpty()){
-            Integer node = queue.poll();
-            sortedOrder.add(node);
+        printOrdering(graph, inDegMap, queue, sortedOrder);
+        return new int[0][0];
+    }
 
-            for(Integer child : graph.get(node)){
-
-                // remove all the edges from this source
-                inDegMap.put(child, inDegMap.get(child)-1);
-                if(inDegMap.get(child)  == 0){
-                    queue.offer(child);
-                }
-            }
-        }
-        if(sortedOrder.size() != vertices) return new int[0];
-
-        int[] res = new int[sortedOrder.size()];
-        for(int i = 0; i < sortedOrder.size(); i++){
-            res[i] = sortedOrder.get(i);
-        }
-        return res;
+    private static void printOrdering(HashMap<Integer, LinkedList<Integer>> graph, HashMap<Integer, Integer> inDegMap, Queue<Integer> queue, List<Integer> sortedOrder) {
+//        while (!queue.isEmpty()){
+//            Integer node = queue.poll();
+//            sortedOrder.add(node);
+//
+//            for(Integer child : graph.get(node)){
+//
+//                // remove all the edges from this source
+//                inDegMap.put(child, inDegMap.get(child)-1);
+//                if(inDegMap.get(child)  == 0){
+//                    queue.offer(child);
+//                }
+//            }
+//            if(graph.get(node).size()>1)
+//                queue.offer(node);
+//        }
+//        if(sortedOrder.size() != vertices) return new int[0][0];
+//
+//        int[] res = new int[sortedOrder.size()];
+//        for(int i = 0; i < sortedOrder.size(); i++){
+//            res[i] = sortedOrder.get(i);
+//        }
+//        return res;
     }
 
     public static void main(String[] args) {

@@ -17,10 +17,10 @@ public class CycleDetectionGraph {
         private int idx;
         private Vertex next;
     }
-    public static void main(String[] args) {
-        CycleDetectionGraph graph = new CycleDetectionGraph(10);
-        detectCycle(graph.vertices, graph.beingVisited, graph.visited);
 
+    public static void main(String[] args) {
+        CycleDetectionGraph graph = new CycleDetectionGraph(3);
+        detectCycle(graph.vertices, graph.beingVisited, graph.visited);
 
     }
     static void detectCycle(Vertex[] vertices,boolean[] beingVisited,boolean[] visited){

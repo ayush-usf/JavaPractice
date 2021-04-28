@@ -177,14 +177,31 @@ public class BinarySearchTree{
         }
     }
 
+    public static int rangeSumBST(Node root, int low, int high) {
+        if(root == null) return 0;
+        int val = (int) root.data;
+        if(val < low)
+            return rangeSumBST(root.right, low, high);
+        if(val > high)
+            return rangeSumBST(root.left, low, high);
+
+        return rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high) + val;
+    }
+
+    //    5
+    //  3   8
+    //1    6
+    // 2
+
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree(5);
         bst.insert(3);
         bst.insert(1);
-        bst.insert(4);
+        bst.insert(8);
         bst.insert(6);
         bst.insert(2);
-        bst.print();
+//        bst.print();
+        System.out.println(rangeSumBST(bst.getRoot(), 3,8));
 //        System.out.println("height : " + bst.height(bst.root));
 //        Node node = findNode(bst.root, 4);
 //        System.out.println("node : " + node.data);
